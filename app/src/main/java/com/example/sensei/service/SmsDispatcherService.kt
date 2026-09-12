@@ -51,7 +51,7 @@ class SmsDispatcherService : Service() {
                     activeStatus.durationMinutes
                 )
 
-                val message = "Hi, This is Sensei, Sai Prasad's assistant. Right now he ${activeStatus.statusText.lowercase()}. $remainingTimeMsg Thank you."
+                val message = "Hi, This is Sensei, [Your Name]'s assistant. Right now he ${activeStatus.statusText.lowercase()}. $remainingTimeMsg Thank you."
                 sendSms(incomingNumber, message)
             }
         }
