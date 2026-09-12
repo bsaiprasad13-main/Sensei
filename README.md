@@ -7,7 +7,7 @@ Sensei is an Android application that acts as your personal auto-responder. When
 Sensei runs reliably in the background on your Android device. When you activate a status (e.g., "Sleeping" for 30 minutes), Sensei will automatically intercept any incoming missed calls and reply with a personalized SMS message to the caller. 
 
 For example, if you miss a call while your status is set to "Gym", the caller will automatically receive:
-> *"Hi, this is Sensei, Sai Prasad's assistant. Right now he is working out. He will be back in 30 mins. Thank you."*
+> *"Hi, this is Sensei, [Your Name]'s assistant. Right now he is working out. He will be back in 30 mins. Thank you."*
 
 ## Features
 - **Dynamic Key-Value Presets:** Define custom button labels and status messages to fit your lifestyle.
