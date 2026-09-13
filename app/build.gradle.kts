@@ -13,6 +13,14 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+
+        val localProperties = java.util.Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localProperties.load(java.io.FileInputStream(localPropertiesFile))
+        }
+        val userName = localProperties.getProperty("USER_NAME", "There")
+        buildConfigField("String", "USER_NAME", "\"$userName\"")
     }
 
     buildTypes {
@@ -28,7 +36,7 @@ android {
     buildFeatures {
       compose = true
       aidl = false
-      buildConfig = false
+      buildConfig = true
       shaders = false
     }
 
