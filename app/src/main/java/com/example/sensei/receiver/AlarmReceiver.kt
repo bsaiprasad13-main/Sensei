@@ -12,6 +12,19 @@ class AlarmReceiver : BroadcastReceiver() {
             val repository = StatusRepository(context)
             repository.clearStatus()
             StatusService.stop(context)
+            
+            // Update widget
+            val updateIntent = Intent(context, com.example.sensei.widget.SenseiWidgetProvider::class.java).apply {
+                action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            }
+            val ids = android.appwidget.AppWidgetManager.getInstance(context).getAppWidgetIds(
+                android.content.ComponentName(context, com.example.sensei.widget.SenseiWidgetProvider::class.java)
+            )
+            updateIntent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            context.sendBroadcast(updateIntent)
+            
+            // Notify list view to refresh data
+            android.appwidget.AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(ids, com.example.sensei.R.id.widget_list_view)
         }
     }
 
