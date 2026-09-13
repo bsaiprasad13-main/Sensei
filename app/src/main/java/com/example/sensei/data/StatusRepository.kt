@@ -12,6 +12,14 @@ data class ActiveStatus(
 class StatusRepository(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
+    fun registerChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
+        prefs.registerOnSharedPreferenceChangeListener(listener)
+    }
+
+    fun unregisterChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
+        prefs.unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
     fun saveStatus(statusText: String, durationMinutes: Int, startTimeMillis: Long = System.currentTimeMillis()) {
         prefs.edit()
             .putString(KEY_STATUS_TEXT, statusText)

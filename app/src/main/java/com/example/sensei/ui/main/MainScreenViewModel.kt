@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import android.content.SharedPreferences
 
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = StatusRepository(application)
@@ -22,8 +23,20 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     private val _uiState = MutableStateFlow(MainScreenUiState())
     val uiState: StateFlow<MainScreenUiState> = _uiState.asStateFlow()
 
+    private val prefChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == "status_text" || key == "start_time" || key == "duration_minutes") {
+            loadStatus()
+        }
+    }
+
     init {
         loadStatus()
+        repository.registerChangeListener(prefChangeListener)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        repository.unregisterChangeListener(prefChangeListener)
     }
 
     private fun loadStatus() {
