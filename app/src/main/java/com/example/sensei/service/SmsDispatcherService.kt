@@ -45,13 +45,11 @@ class SmsDispatcherService : Service() {
                 }
 
                 // Construct message
-                val timeCalculator = TimeCalculator()
-                val remainingTimeMsg = timeCalculator.calculateRemainingTimeMessage(
+                val message = com.example.sensei.MessageBuilder.buildSmsMessage(
+                    activeStatus.statusText,
                     activeStatus.startTimeMillis,
                     activeStatus.durationMinutes
                 )
-
-                val message = "Hi, This is Sensei, ${com.example.sensei.BuildConfig.USER_NAME}'s assistant. Right now he ${activeStatus.statusText.lowercase()}. $remainingTimeMsg Thank you."
                 sendSms(incomingNumber, message)
             }
         }

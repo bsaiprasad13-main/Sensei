@@ -275,9 +275,25 @@ fun ActiveStatusCard(status: ActiveStatus, onClearClick: () -> Unit) {
             val durationText = if (status.durationMinutes == -1) "No Limit" else "${status.durationMinutes} mins"
             Text("Duration: $durationText", style = MaterialTheme.typography.bodyMedium)
 
+            Divider(modifier = Modifier.padding(vertical = 4.dp))
+            
+            Text("Auto-Reply Preview:", style = MaterialTheme.typography.labelMedium)
+            val previewMessage = com.example.sensei.MessageBuilder.buildSmsMessage(
+                status.statusText,
+                status.startTimeMillis,
+                status.durationMinutes
+            )
+            Text(
+                text = previewMessage,
+                style = MaterialTheme.typography.bodyMedium,
+                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
+            )
+
             Button(
                 onClick = onClearClick,
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+                modifier = Modifier.padding(top = 8.dp)
             ) {
                 Text("Clear Status")
             }
